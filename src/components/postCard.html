@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Card</title>
+    <style>
+        /* Basic styles for the post card */
+        .post-card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 300px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .post-card:hover {
+            transform: scale(1.05);
+        }
+
+        .post-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .post-card-content {
+            padding: 15px;
+        }
+
+        .post-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .post-card p {
+            margin: 0 0 15px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .post-card button {
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #1e90ff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .post-card button:hover {
+            background-color: #1c86ee;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="post-card">
+        <img src="path/to/image.jpg" alt="Destination Image">
+        <div class="post-card-content">
+            <h3>Destination Name</h3>
+            <p>This is a brief description of the travel destination. It gives a quick overview of what to expect.</p>
+            <div class="button-container">
+                <button onclick="requestToJoin()">Request to Join</button>
+                <button onclick="sendMessage()">Message</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function requestToJoin() {
+            alert("Request to join sent!");
+        }
+
+        function sendMessage() {
+            alert("Message sent!");
+        }
+    </script>
+</body>
+</html>

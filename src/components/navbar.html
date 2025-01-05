@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Example</title>
+    <style>
+        /* Basic styles for the navigation bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Logo styling */
+        .navbar .logo img {
+            width: 100px;
+        }
+
+        /* Navigation links styling */
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar .nav-links li {
+            margin-left: 20px;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #00c6a1;
+        }
+
+        /* Menu icon styling for mobile view */
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menu-icon img {
+            width: 30px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+
+            .navbar .nav-links.show {
+                display: flex;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="../assets/logo.png" alt="Yatrasaath Logo"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="create-post.html">Create Post</a></li>
+            <li><a href="requests.html">Requests</a></li>
+            <li><a href="chat.html">Chat</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+        <div class="menu-icon" id="menu-icon">
+            <img src="../assets/menu-icon.png" alt="Menu Icon">
+        </div>
+    </nav>
+
+    <script>
+        // Toggle the navigation links for mobile view
+        document.getElementById('menu-icon').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

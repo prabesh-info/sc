@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        /* Basic styles for the chat interface */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            max-width: 800px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #1e90ff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .chat-messages {
+            padding: 20px;
+            height: 400px;
+            overflow-y: scroll;
+        }
+
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .message p {
+            margin: 0;
+        }
+
+        .message .username {
+            font-weight: bold;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-right: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #1e90ff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background-color: #1c86ee;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            Yatrasaath Chat
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be dynamically added here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Type a message..." />
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Example user data
+        const username = "CurrentUser"; // Replace with actual user data
+
+        // Function to add a message to the chat
+        function addMessage(username, message) {
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add('message');
+            
+            const messageUsername = document.createElement('p');
+            messageUsername.classList.add('username');
+            messageUsername.textContent = username;
+            
+            const messageText = document.createElement('p');
+            messageText.textContent = message;
+            
+            messageContainer.appendChild(messageUsername);
+            messageContainer.appendChild(messageText);
+            
+            document.getElementById('chat-messages').appendChild(messageContainer);
+            document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+        }
+
+        // Handle sending messages
+        document.getElementById('send-btn').addEventListener('click', () => {
+            const messageInput = document.getElementById('chat-input');
+            const message = messageInput.value.trim();
+            if (message !== "") {
+                addMessage(username, message);
+                messageInput.value = "";
+                // Add logic to send the message to the server
+            }
+        });
+
+        // Handle pressing Enter key to send message
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('send-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>

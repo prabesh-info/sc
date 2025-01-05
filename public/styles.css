@@ -1,0 +1,52 @@
+/* styles.css */
+
+/* Container for the splash screen */
+.splash-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #1e90ff, #00c6a1);
+    text-align: center;
+}
+
+/* Logo styling */
+.logo {
+    width: 150px;
+    animation: fadeIn 2s;
+}
+
+/* Heading styling */
+h1 {
+    margin: 20px 0;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

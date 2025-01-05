@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requests - Yatrasaath</title>
+    <style>
+        /* Basic styles for the requests page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .requests-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .requests-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .request-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .request-item:last-child {
+            border-bottom: none;
+        }
+
+        .request-item h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .request-item p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .request-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .accept-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .accept-btn:hover {
+            background-color: #218838;
+        }
+
+        .decline-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .decline-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="requests-container">
+        <div class="requests-header">
+            <h2>Requests</h2>
+        </div>
+        <div id="requests-list" class="requests-list">
+            <!-- Request items will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Example data - replace with actual data from your backend
+        const requestsData = [
+            {
+                id: 1,
+                name: "John Doe",
+                message: "Wants to join your trip to Paris."
+            },
+            {
+                id: 2,
+                name: "Jane Smith",
+                message: "Wants to be your friend."
+            },
+            {
+                id: 3,
+                name: "Alice Johnson",
+                message: "Wants to join your hiking trip in the Swiss Alps."
+            }
+        ];
+
+        // Function to populate the requests list with data
+        function populateRequests() {
+            const requestsList = document.getElementById('requests-list');
+            requestsData.forEach(request => {
+                const requestItem = document.createElement('div');
+                requestItem.classList.add('request-item');
+                
+                const requestInfo = document.createElement('div');
+                const requestTitle = document.createElement('h3');
+                requestTitle.textContent = request.name;
+                const requestMessage = document.createElement('p');
+                requestMessage.textContent = request.message;
+                requestInfo.appendChild(requestTitle);
+                requestInfo.appendChild(requestMessage);
+                
+                const requestActions = document.createElement('div');
+                requestActions.classList.add('request-actions');
+                const acceptButton = document.createElement('button');
+                acceptButton.textContent = 'Accept';
+                acceptButton.classList.add('accept-btn');
+                acceptButton.onclick = () => handleRequest(request.id, 'accepted');
+                const declineButton = document.createElement('button');
+                declineButton.textContent = 'Decline';
+                declineButton.classList.add('decline-btn');
+                declineButton.onclick = () => handleRequest(request.id, 'declined');
+                requestActions.appendChild(acceptButton);
+                requestActions.appendChild(declineButton);
+                
+                requestItem.appendChild(requestInfo);
+                requestItem.appendChild(requestActions);
+                
+                requestsList.appendChild(requestItem);
+            });
+        }
+
+        // Function to handle request actions
+        function handleRequest(requestId, action) {
+            console.log(`Request ${requestId} has been ${action}.`);
+            // Add logic to handle the request action, such as updating the backend
+        }
+
+        // Populate the requests on page load
+        document.addEventListener('DOMContentLoaded', populateRequests);
+    </script>
+</body>
+</html>

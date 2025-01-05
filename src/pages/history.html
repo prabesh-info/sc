@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <style>
+        /* Basic styles for the history page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .history-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .history-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-item h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .history-item p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .history-date {
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="history-container">
+        <div class="history-header">
+            <h1>Travel History</h1>
+        </div>
+        <div id="history-list" class="history-list">
+            <!-- History items will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Example data - replace with actual data from your backend
+        const historyData = [
+            {
+                title: "Trip to Paris",
+                description: "Visited the Eiffel Tower and Louvre Museum.",
+                date: "2024-12-25"
+            },
+            {
+                title: "Hiking in the Swiss Alps",
+                description: "An amazing adventure through the mountains.",
+                date: "2024-11-15"
+            },
+            {
+                title: "Beach Vacation in Bali",
+                description: "Relaxed on the beautiful beaches of Bali.",
+                date: "2024-10-05"
+            }
+        ];
+
+        // Function to populate the history list with data
+        function populateHistory() {
+            const historyList = document.getElementById('history-list');
+            historyData.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.classList.add('history-item');
+                
+                const title = document.createElement('h3');
+                title.textContent = item.title;
+                
+                const description = document.createElement('p');
+                description.textContent = item.description;
+                
+                const date = document.createElement('p');
+                date.classList.add('history-date');
+                date.textContent = `Date: ${item.date}`;
+                
+                historyItem.appendChild(title);
+                historyItem.appendChild(description);
+                historyItem.appendChild(date);
+                
+                historyList.appendChild(historyItem);
+            });
+        }
+
+        // Call the function to populate the history on page load
+        document.addEventListener('DOMContentLoaded', populateHistory);
+    </script>
+</body>
+</html>

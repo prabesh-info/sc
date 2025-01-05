@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Yatrasaath</title>
+    <style>
+        /* Basic styles for the settings page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .settings-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .settings-section {
+            margin-bottom: 40px;
+        }
+
+        .settings-section h3 {
+            border-bottom: 2px solid #1e90ff;
+            padding-bottom: 10px;
+            color: #333;
+        }
+
+        .settings-section input,
+        .settings-section textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .settings-section button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 10px;
+            border: none;
+            background-color: #1e90ff;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .settings-section button:hover {
+            background-color: #1c86ee;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <div class="settings-header">
+            <h2>Settings</h2>
+        </div>
+
+        <div class="settings-section">
+            <h3>Profile Information</h3>
+            <form id="profile-form">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <textarea id="bio" rows="5" placeholder="Bio"></textarea>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+
+        <div class="settings-section">
+            <h3>Account Preferences</h3>
+            <form id="preferences-form">
+                <label for="notifications">Email Notifications:</label>
+                <select id="notifications">
+                    <option value="enabled">Enabled</option>
+                    <option value="disabled">Disabled</option>
+                </select>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the necessary Firebase modules
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+        import { getDatabase, ref, set, get, child } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+
+        // Your Firebase configuration object
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "YOUR_DATABASE_URL",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Function to load user settings
+        const loadUserSettings = async () => {
+            const userId = "USER_ID"; // Replace with actual user ID
+            const userRef = ref(database, 'users/' + userId);
+            const snapshot = await get(child(userRef, 'settings'));
+            if (snapshot.exists()) {
+                const settings = snapshot.val();
+                document.getElementById('name').value = settings.name;
+                document.getElementById('email').value = settings.email;
+                document.getElementById('bio').value = settings.bio;
+                document.getElementById('notifications').value = settings.notifications;
+            } else {
+                console.log("No settings data available");
+            }
+        };
+
+        // Function to save profile information
+        const saveProfileInfo = (userId, name, email, bio) => {
+            set(ref(database, 'users/' + userId + '/settings'), {
+                name: name,
+                email: email,
+                bio: bio
+            }).then(() => {
+                console.log('Profile information saved successfully!');
+                alert('Profile information saved successfully!');
+            }).catch((error) => {
+                console.error('Error saving profile information:', error);
+                alert(error.message);
+            });
+        };
+
+        // Function to save account preferences
+        const saveAccountPreferences = (userId, notifications) => {
+            set(ref(database, 'users/' + userId + '/settings/notifications'), notifications)
+                .then(() => {
+                    console.log('Account preferences saved successfully!');
+                    alert('Account preferences saved successfully!');
+                }).catch((error) => {
+                    console.error('Error saving account preferences:', error);
+                    alert(error.message);
+                });
+        };
+
+        // Handle profile form submission
+        document.getElementById('profile-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userId = "USER_ID"; // Replace with actual user ID
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const bio = document.getElementById('bio').value;
+
+            saveProfileInfo(userId, name, email, bio);
+        });
+
+        // Handle preferences form submission
+        document.getElementById('preferences-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userId = "USER_ID"; // Replace with actual user ID
+            const notifications = document.getElementById('notifications').value;
+
+            saveAccountPreferences(userId, notifications);
+        });
+
+        // Load user settings on page load
+        document.addEventListener('DOMContentLoaded', loadUserSettings);
+    </script>
+</body>
+</html>
